@@ -351,5 +351,7 @@ Finally, the insertions are committed to the database and the number of insertio
 
 For simplicity, the code presented in the previous three sections have been collated into a sinlge Python script called \texttt{dbBuilder.py}. Running this script within terminal from the working directory will clean the raw data, save it to a new file, connect to the database, create the schemas and finally import the cleaned data. It is assumed the database \texttt{election} already exists and is configured, however it is not required that the database is empty because the program will drop all schemas before recreating them.
 
+The database name, username, and password are stored in the \texttt{config.py} file, which is used to establish the connection to PostgreSQL. These parameters must match the configuration of the local machine in order for the connection to be successful.
+
 
 \end{document}

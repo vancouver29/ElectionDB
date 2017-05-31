@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1496238556 "DBProject.tex" "DBProject.pdf" "DBProject" 1496238557
+["pdflatex"] 1496239437 "DBProject.tex" "DBProject.pdf" "DBProject" 1496239438
   "../../Code/DBBuilder/data_cleaner.py" 1496224415 1316 d22088ae524838e7cad8fb3a4c86d564 ""
   "../../Code/DBBuilder/table_creator.py" 1496217839 1867 dcb6c0154664bfe2cd64e0cb444a4557 ""
   "../../Code/DBBuilder/table_populator.py" 1496169100 1853 234ae821234f666b0519492160e90797 ""
@@ -112,13 +112,13 @@
   "/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1494504169 1888048 f2c5faed5981a516f406b2ccc20bff71 ""
   "/usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt" 1494504230 3873397 c8d6abe9c7cee3f55daf5a51cdea53d3 ""
   "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
-  "DBProject.aux" 1496238557 4713 96f73ebf95d5383c0f8629884e56a843 ""
-  "DBProject.out" 1496238557 1029 0aad0ff02759f8bbe91687e571c16cb4 ""
-  "DBProject.tex" 1496238556 22202 2d0d23eae752588c636e9c5795cc5730 ""
+  "DBProject.aux" 1496239438 4713 96f73ebf95d5383c0f8629884e56a843 ""
+  "DBProject.out" 1496239438 1029 0aad0ff02759f8bbe91687e571c16cb4 ""
+  "DBProject.tex" 1496239437 22458 4a601b69e805586e0008e4d1937cda33 ""
   "images/ERModel.png" 1494251098 27824 ade84104237f400692b588adbeaf0c64 ""
   "images/relationalModel.png" 1494257539 10812 5186f9ef602f3ab5a2b21f9c8f4ef425 ""
   (generated)
+  "DBProject.aux"
   "DBProject.log"
   "DBProject.pdf"
   "DBProject.out"
-  "DBProject.aux"

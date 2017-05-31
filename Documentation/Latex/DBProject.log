@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.11)  31 MAY 2017 15:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.11)  31 MAY 2017 16:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -886,19 +886,19 @@ T1/cmr/m/n/12 ;
 
 (../../Code/DBBuilder/data_cleaner.py [13]) [14]
 (../../Code/DBBuilder/table_populator.py [15] [16])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 355.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 357.
  [17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 355.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 357.
  (./DBProject.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 355.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 355.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 357.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 357.
 Package rerunfilecheck Info: File `DBProject.out' has not changed.
 (rerunfilecheck)             Checksum: 0AAD0FF02759F8BBE91687E571C16CB4;1029.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 355.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 357.
  )
 (\end occurred inside a group at level 1)
 
@@ -953,7 +953,7 @@ xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texl
 ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texli
 ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on DBProject.pdf (17 pages, 241759 bytes).
+Output written on DBProject.pdf (17 pages, 241980 bytes).
 PDF statistics:
  471 PDF objects out of 1000 (max. 8388607)
  429 compressed objects within 5 object streams
