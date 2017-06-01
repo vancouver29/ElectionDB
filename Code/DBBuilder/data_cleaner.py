@@ -3,21 +3,27 @@ from openpyxl import Workbook
 from openpyxl import load_workbook
 from config import data_config
 
+# data is an array: [handle, content, isRetweet, origAuthor, time, inReplyTo, isQuoteStatus, retweetCount, favCount, sourceURL]
 def clean_row(data):
-    # convert encoded symbols
-    data[1] = data[1].replace("&amp;", "&")
-    data[1] = data[1].replace("&lt;", "<")
-    data[1] = data[1].replace("&gt;", ">")
+    # unpack columns needed
+    handle, content, isRetweet, origAuthor, time = data[:5]
+    retweetCount, favCount = [7:9]
+    # convert encoded symbols, if any
+    content = content.replace("&amp;", "&")
+    content = content.replace("&lt;", "<")
+    content = content.replace("&gt;", ">")
     # reformat time stamp
-    data[4] = data[4].replace("T"," ")
+    time = time.replace("T"," ")
     # return only needed columns
-    return data[:2] + data[4:5] + data[2:4] + data[7:9]
+    return [handle, content, time, isRetweet, origAuthor, retweetCount, favCount]
 
 def clean_data():
     # open raw data file & get the worksheet
     input_file = data_config['input_filename']
     print '\nopening file:', input_file, '...'
+    # a workbook is an xlsx file
     input_wb = load_workbook(input_file, read_only = True)
+    # a worksheet is a sheet containing rows
     input_ws = input_wb[data_config['sheet_name']]
 
     # create new workbook with a new worksheet

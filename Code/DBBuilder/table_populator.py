@@ -1,9 +1,9 @@
 #!/usr/bin/python
 import psycopg2
-import re
-from openpyxl import load_workbook
 from config import db_config
 from config import data_config
+from openpyxl import load_workbook
+import re
 
 def populate_tables():
 
@@ -11,6 +11,7 @@ def populate_tables():
     tweet_count = 0
     hashtag_count = 0
 
+    # open the xlsx spreadsheet containing clean data
     filename = data_config['clean_filename']
     print "\nopening data file:", filename
     wb = load_workbook(filename, read_only = True)
