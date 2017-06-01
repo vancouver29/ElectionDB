@@ -114,7 +114,7 @@ https://github.com/johnxnguyen/ElectionDB\\
 
 % TITLE
 \title{\textbf{Database Systems}\\Project Documentation}
-\date{12/05/2017}
+\date{02/06/2017}
 \author{John Nguyen\\Gavithishan Ravechandran\\Khanh Bui Trong}
 \maketitle
 \thispagestyle{empty}
@@ -335,6 +335,7 @@ This problem does not arise when parsing a spreadsheet; all tweet elements are c
 
 % IMPORTING THE DATA
 % ----------------------------------------------------------------------
+\newpage
 \section{Importing the data}
 \label{sec:dataImporting}
 
@@ -347,11 +348,41 @@ Finally, the insertions are committed to the database and the number of insertio
 
 % EXECUTING THE CODE
 % ----------------------------------------------------------------------
+\newpage
 \section{Executing the code}
 
 For simplicity, the code presented in the previous three sections have been collated into a sinlge Python script called \texttt{dbBuilder.py}. Running this script within terminal from the working directory will clean the raw data, save it to a new file, connect to the database, create the schemas and finally import the cleaned data. It is assumed the database \texttt{election} already exists and is configured, however it is not required that the database is empty because the program will drop all schemas before recreating them.
 
 The database name, username, and password are stored in the \texttt{config.py} file, which is used to establish the connection to PostgreSQL. These parameters must match the configuration of the local machine in order for the connection to be successful.
+
+% WEB SERVER
+% ----------------------------------------------------------------------
+\section{Web Server}
+We have chosen to use the open source server software \texttt{Apache}, which is included in the \textit{macOS Sierra} operating system. It is configured at both the system wide level and the user level. The server root directory on the system level is located at:
+
+\begin{verbatim}
+  /Library/WebServer/Documents
+\end{verbatim}
+
+and can be accessed in the web browers at the url:
+
+\begin{verbatim}
+  http://localhost
+\end{verbatim}
+
+The server root directory on the user level is located at:
+
+\begin{verbatim}
+  ~/Sites
+\end{verbatim}
+
+and can be accessed in the web browers at the url:
+
+\begin{verbatim}
+  http://localhost/~username
+\end{verbatim}
+
+where \texttt{username} is a placeholder for the username of on the local machine.
 
 
 \end{document}

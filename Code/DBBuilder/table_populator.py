@@ -53,6 +53,7 @@ def populate_tables():
 
     except (Exception, psycopg2.DatabaseError) as error:
         print "ERROR:", error
+        exit
 
     finally:
         if conn is not None:

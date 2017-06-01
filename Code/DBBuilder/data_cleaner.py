@@ -7,7 +7,7 @@ from config import data_config
 def clean_row(data):
     # unpack columns needed
     handle, content, isRetweet, origAuthor, time = data[:5]
-    retweetCount, favCount = [7:9]
+    retweetCount, favCount = data[7:9]
     # convert encoded symbols, if any
     content = content.replace("&amp;", "&")
     content = content.replace("&lt;", "<")
