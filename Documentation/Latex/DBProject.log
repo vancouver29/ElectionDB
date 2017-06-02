@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.11)  1 JUN 2017 16:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.11)  2 JUN 2017 10:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -878,10 +878,9 @@ Chapter 2.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 311.
  (../../Code/DBBuilder/table_creator.py [11]) [12]
-Overfull \hbox (19.33366pt too wide) in paragraph at lines 325--326
-\OT1/cmr/m/n/12 the \OT1/cmtt/m/n/12 TIMESTAMP \OT1/cmr/m/n/12 data type in Pos
-t-greSQL is ex-pected to be in the form \OT1/cmtt/m/n/12 yyyy-mm-dd  hh:mm:ss\O
-T1/cmr/m/n/12 ;
+Overfull \hbox (0.4033pt too wide) in paragraph at lines 325--326
+\OT1/cmtt/m/n/12 TIMESTAMP \OT1/cmr/m/n/12 data type in Post-greSQL is ex-pecte
+d to be in the form \OT1/cmtt/m/n/12 yyyy-mm-dd  hh:mm:ss\OT1/cmr/m/n/12 ;
  []
 
 (../../Code/DBBuilder/data_cleaner.py [13] [14]) [15]
@@ -906,7 +905,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 388.
 Here is how much of TeX's memory you used:
  10457 strings out of 493014
  148893 string characters out of 6133351
- 384150 words of memory out of 5000000
+ 384135 words of memory out of 5000000
  13601 multiletter control sequences out of 15000+600000
  15454 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -952,7 +951,7 @@ xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texl
 ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texli
 ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on DBProject.pdf (19 pages, 245301 bytes).
+Output written on DBProject.pdf (19 pages, 245241 bytes).
 PDF statistics:
  495 PDF objects out of 1000 (max. 8388607)
  451 compressed objects within 5 object streams

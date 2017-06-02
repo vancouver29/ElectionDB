@@ -284,22 +284,22 @@ Next we define the schemas corresponding to the \textit{Tweets} and \textit{Hash
   CREATE TABLE Tweets (
         handle          HANDLE_TYPE     NOT NULL,
         content         VARCHAR(140)    NOT NULL,
-        t_stamp         TIMESTAMP       NOT NULL,
+        time            TIMESTAMP       NOT NULL,
         is_retweet      BOOLEAN         NOT NULL,
         orig_author     HANDLE_TYPE,
         retweet_count   NATURAL_NUM,
         fav_count       NATURAL_NUM,
-        PRIMARY KEY (handle, t_stamp)
+        PRIMARY KEY (handle, time)
     );
 
     CREATE TABLE Hashtags (
           tag           VARCHAR(140)  NOT NULL
           CHECK (tag ~ '^#\w*[a-zA-Z]\w*$'),
           tweet_handle  HANDLE_TYPE   NOT NULL,
-          tweet_t_stamp TIMESTAMP     NOT NULL,
-          PRIMARY KEY (tag, tweet_handle, tweet_t_stamp),
-          FOREIGN KEY (tweet_handle, tweet_t_stamp)
-          REFERENCES Tweets(handle, t_stamp)
+          tweet_time    TIMESTAMP     NOT NULL,
+          PRIMARY KEY (tag, tweet_handle, tweet_time),
+          FOREIGN KEY (tweet_handle, tweet_time)
+          REFERENCES Tweets(handle, time)
           ON UPDATE CASCADE ON DELETE CASCADE
       );
 \end{verbatim}
@@ -318,15 +318,15 @@ The Python script in listing~\ref{lst:tableCreator} creates the relation schemas
 \label{sec:dataCleaning}
 In order to correctly import the data into the database, we must first prepare and clean the raw data. This involves extracting only the necessary data, formatting the data components into the expected data types as defined by the corresponding relation schema, as well as removing or correcting any other anomalies.
 
-Of all the attributes listed in the schemas of the previous section, only \texttt{content} and \texttt{t\_stamp} attributes need to be reformatted.
+Of all the attributes listed in the schemas of the previous section, only the \texttt{content} and \texttt{time} attributes need to be reformatted.
 
 \subparagraph{content:} In the raw data file, some tweet entries contain symbols encoded for web usages. These include \texttt{\&}, \texttt{<}, and \texttt{>}, and appear in the raw data as \texttt{\&amp;}, \texttt{\&lt;}, and \texttt{\&gt;} respectively. Thus we must replace each occurrence of these encoded symbols with the decoded symbols they represent.
 
-\subparagraph{t\_stamp:} In the raw data file, this element has the form \texttt{yyyy-mm-ddThh:mm:ss}; for example \texttt{2017-01-01T00:00:00} represents midnight on the 1st of January 2017. However, the \texttt{TIMESTAMP} data type in PostgreSQL is expected to be in the form \texttt{yyyy-mm-dd~ hh:mm:ss}; the only difference is absence of the letter \texttt{T}. Therefore we must replace the letter \texttt{T} with a space for every entry of this data element in the raw data.
+\subparagraph{time:} In the raw data file, this element has the form \texttt{yyyy-mm-ddThh:mm:ss}; for example \texttt{2017-01-01T00:00:00} represents midnight on the 1st of January 2017. However, the \texttt{TIMESTAMP} data type in PostgreSQL is expected to be in the form \texttt{yyyy-mm-dd~ hh:mm:ss}; the only difference is absence of the letter \texttt{T}. Therefore we must replace the letter \texttt{T} with a space for every entry of this data element in the raw data.
 
 All the other data elements corresponding to the remaining attributes are already in the appropriate format and thus no additional conversions are required.
 
-The Python script shown in listing~\ref{lst:dataCleaner} automates this process by reading the raw data, performing the conversions, and writing only the needed (and cleaned) data into a new file. The raw data has been provided in two different file formats: \texttt{xlsx} (excel spreadsheet) and \texttt{csv} (comma separated values). We have chosen to work with the \texttt{xlsx} file because it is better structured compare to the \textit{csv} file. Each line of \texttt{csv} file does not always represent a complete tweet entry; multiline tweets (those with newline characters) are spread across multiple lines within the \texttt{csv} file and thus pose a problem when trying to parse this file.
+The Python script shown in listing~\ref{lst:dataCleaner} automates this process by reading the raw data, performing the conversions, and writing only the needed (and cleaned) data into a new file. The raw data has been provided in two different file formats: \texttt{xlsx} (excel spreadsheet) and \texttt{csv} (comma separated values). We have chosen to work with the \texttt{xlsx} file because it is better structured compared to the \textit{csv} file. Each line of \texttt{csv} file does not always represent a complete tweet entry; multiline tweets (those with newline characters) are spread across multiple lines within the \texttt{csv} file and thus pose a problem when trying to parse this file.
 
 This problem does not arise when parsing a spreadsheet; all tweet elements are contained within individual cells, including multiline tweets. Thus the program can easily iterate through each row and then through each cell to extract the elements accordingly. Furthermore, the standard Python \texttt{csv} parsing module does not support unicode strings (and therefore also the emojis contained in the tweets), whereas the spreadsheet does. The program utilizes the \textit{openpyxl} package for reading and writing the \texttt{xlsx} file format.
 
@@ -339,7 +339,7 @@ This problem does not arise when parsing a spreadsheet; all tweet elements are c
 \section{Importing the data}
 \label{sec:dataImporting}
 
-The Python script in listing~\ref{lst:tablePopulator} automates the insertion of the cleaned data into the database. It first makes a connection to the database, then iterates through each row of the data file (\texttt{xlsx} format) and inserts both the tweet data and the hashtag data contained in this row. The structure of the data file corresponds to the \texttt{Tweets} table and thus we can simply insert the whole row directly into this table. The hashtag data must be extracted from the current tweet content, which is achieved by using a regular expression to find any embedded hashtags. As noted in section~\ref{subsec:considerations}, only distinct hashtags are extracted. Once a list of distinct hashtags is obtained, the program then inserts a new row into the \texttt{Hashtags} table for each hashtag with a reference to the current tweet.
+The Python script in listing~\ref{lst:tablePopulator} automates the insertion of the cleaned data into the database. It first makes a connection to the database, then iterates through each row of the data file (\texttt{xlsx} format) and inserts both the tweet data and the hashtag data contained in this row. The structure of the data file corresponds to the \texttt{Tweets} table and thus we can simply insert the whole row directly into this table. The hashtag data must be extracted from the current tweet content, which is achieved by using a regular expression to find all embedded hashtags. As noted in section~\ref{subsec:considerations}, only distinct hashtags are extracted. Once a list of distinct hashtags is obtained, the program then inserts a new row into the \texttt{Hashtags} table for each hashtag with a reference to the current tweet.
 
 Finally, the insertions are committed to the database and the number of insertions is reported back to the user.
 
@@ -364,7 +364,7 @@ We have chosen to use the open source server software \texttt{Apache}, which is 
   /Library/WebServer/Documents
 \end{verbatim}
 
-and can be accessed in the web browers at the url:
+and can be accessed in the web brower at the url:
 
 \begin{verbatim}
   http://localhost
