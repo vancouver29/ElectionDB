@@ -3,6 +3,8 @@ import psycopg2
 from config import db_config
 import json
 
+# return list of distinct hashtags.
+#
 def listOfHashtags():
 
     conn = None
@@ -27,7 +29,9 @@ def listOfHashtags():
     return tags
 
 
-
+# return list hashtag pairs (tuples) where the pairs occur
+# together at least once.
+#
 def listOfPairs():
 
     conn = None
@@ -63,12 +67,14 @@ def listOfPairs():
     return pairs
 
 
-def main():
+# generate JSON file describing a graph of hashtags (nodes), where
+# two nodes are connected iff they occur together at least once.
+#
+def generateJSONNetworkGraph():
     # array of hashtags (strings)
     tags = listOfHashtags()
     # array of tuples ('tagA', 'tagB')
     pairs = listOfPairs()
-
     # convert to dictionary with tag as key, hashtag as value
     nodes = map(lambda x: { 'tag': x }, tags)
     # conver to dictionary, with source & target as keys, tagA & tagB as values
@@ -82,7 +88,6 @@ def main():
     for i, edge in enumerate(edges):
         edge['id'] = i
 
-
     # create json file
     with open('hashtagNetwork.json', 'w') as outfile:
         # the data to write into json
@@ -93,6 +98,5 @@ def main():
         outfile.write(s)
 
 
-# entry point when script called in interpreter
 if __name__ == '__main__':
-    main()
+    generateJSONNetworkGraph()
