@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hashtag Frequency</title>
+
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <style>
+      .main {
+        margin: 0 auto;
+        width: 960px;
+      }
+
+      .canvas rect {
+        fill: red;
+      }
+
+      .title {
+        fill: black;
+        font: 80px sans-serif;
+      }
+
+      .axis text {
+        font: 10px sans-serif;
+      }
+
+      .axis path, line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <script>
+    // set margins and canvas size
+    var margin = {top: 20, right: 20, bottom: 20, left: 20},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    // create main container
+    var svg = d3.select('body').append('div')
+        .attr('class', 'main')
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .on('click', toggleGraph);
+
+    // put the canvas inside
+    svg.append('g')
+        .attr('class', 'canvas')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    // 267 days in range
+    var barWidth = width / 267;
+    var bars;
+    var timeScale, countScale;
+
+    // clicking on graph loads new graph randomly
+    function toggleGraph() {
+      var randomTag = allData[Math.floor(Math.random()*allData.length)];
+      bars.data(randomTag.data);
+      update(randomTag.id);
+    }
+
+    // update graph visuals for current data set
+    function update(tag) {
+
+      bars
+      .transition()
+      .duration(1000)
+      .attr('y', function(d) { return countScale(d.count); })
+      .attr('height', function(d) { return height - countScale(d.count); });
+
+      d3.select('.title')
+      .attr('x', 100)
+      .attr('y', 150)
+      .text(tag);
+
+    }
+
+    
+    function drawGraph(tag, data) {
+
+      var timeExtent = d3.extent(data, function (d) { return d.timestamp; });
+      timeScale = d3.time.scale().domain(timeExtent).range([0, width]);
+
+      // merge all count data for each hashtag to find the extent
+      var merged = [].concat.apply([], allData.map(function (d) { return d.data; }));
+
+      var countExtent = d3.extent(merged, function (d) { return d.count; });
+      countScale = d3.scale.linear().domain(countExtent).range([height, 0]);
+
+      // get the container
+      var container = d3.select('.canvas');
+
+      // tag label
+      // container.append('text');
+      d3.select('.main').append('text').attr('class', 'title');
+
+      // axes
+      var xAxis = d3.svg.axis()
+          .scale(timeScale)
+          .orient('bottom');
+
+      var yAxis = d3.svg.axis()
+          .scale(countScale)
+          .ticks(20)
+          .orient('left');
+
+      // bind data to groups
+      bars = container
+                   .selectAll('g')
+                   .data(data)
+                   .enter()
+                   .append('g')
+                   .attr('transform', function (d, i) {
+                     // space groups horizontally
+                     return 'translate(' + timeScale(d.timestamp) + ', 0)'
+                   })
+                   .append('rect');
+
+      // mouseover on bars
+      bars.on('mouseover.tooltip', function (d) {
+        d3.select('.canvas')
+        .append('text')
+        .text(d.date)
+        .attr('x', timeScale(d.timestamp))
+        .attr('y', countScale(d.count))
+        .attr('id', 'tooltip');
+      })
+      .on('mouseout.tooltip', function (d) {
+        d3.selectAll('#tooltip')
+        .remove();
+      });
+
+      // entry animations
+      bars
+      .attr('y', height)
+      .attr('height', 0)
+      .attr('width', barWidth - 1)
+      .transition()
+      .duration(1000)
+      .attr('y', function(d) { return countScale(d.count); })
+      .attr('height', function(d) { return height - countScale(d.count); });
+
+      update(tag);
+
+      container.append('g')
+          .attr('class', 'x axis')
+          .attr('transform', 'translate(0,' + height + ')')
+          .call(xAxis);
+
+      container.append('g')
+          .attr('class', 'y axis')
+          .call(yAxis);
+    }
+    </script>
+
+    <script>
+
+      // load all data & draw initial graph
+      var allData;
+      d3.json('Data/frequency.json', function (data) {
+        allData = data;
+        var someData = data.filter(function (d) { return d.id === '#Trump2016'; })
+        drawGraph('#Trump2016', someData[0].data);
+      });
+    </script>
+
+  </body>
+</html>
