@@ -3,8 +3,8 @@ from getpass import getpass
 
 def db_config():
     database = 'election'
-    user = 'johnnguyen'
-    password = getpass()
+    user = ''
+    password = ''
     return {'database': database, 'user': user, 'password': password}
 
 # filename & sheetname for the raw data & filename for clean data
